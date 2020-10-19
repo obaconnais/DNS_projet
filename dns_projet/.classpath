@@ -36,5 +36,12 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="/Users/olivier/Downloads/javax.websocket_1.0.0.v20140310-1603.jar"/>
+	<classpathentry kind="lib" path="/Users/olivier/Downloads/websocket-ri-archive-1.12/lib/tyrus-server-1.12.jar"/>
+	<classpathentry kind="lib" path="/Users/olivier/Downloads/websocket-ri-archive-1.12/lib/tyrus-client-1.12.jar"/>
+	<classpathentry kind="lib" path="/Users/olivier/Downloads/websocket-ri-archive-1.12/lib/tyrus-container-glassfish-cdi-1.12.jar"/>
+	<classpathentry kind="lib" path="/Users/olivier/Downloads/websocket-ri-archive-1.12/lib/tyrus-container-grizzly-client-1.12.jar"/>
+	<classpathentry kind="lib" path="/Users/olivier/Downloads/websocket-ri-archive-1.12/lib/tyrus-container-servlet-1.12.jar"/>
+	<classpathentry kind="lib" path="/Users/olivier/Downloads/websocket-ri-archive-1.12/lib/tyrus-core-1.12.jar"/>
+	<classpathentry kind="lib" path="/Users/olivier/Downloads/websocket-ri-archive-1.12/lib/tyrus-spi-1.12.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
