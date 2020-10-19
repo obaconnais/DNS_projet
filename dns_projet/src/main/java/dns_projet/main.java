@@ -11,6 +11,7 @@ import java.util.HashMap;
 import jndi.Dns;
 import websocket.Websocket; 
 public class main {
+	
 
 	public static void main(String[] args) throws NamingException, IOException {
 		Dns _google = new Dns("samsung", ".fr");
