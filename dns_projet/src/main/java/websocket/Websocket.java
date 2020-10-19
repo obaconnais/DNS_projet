@@ -1,15 +1,32 @@
 package websocket;
 
 import java.io.IOException;
-import java.net.ServerSocket;
-import java.net.Socket;
+import javax.websocket.*;
 
 public class Websocket {
-	public Websocket() throws IOException{
-		ServerSocket server = new ServerSocket(80);
-		System.out.println("Server has started on 127.0.0.1:80.\r\nWaiting for a connection...");
-		Socket client = server.accept();
-		System.out.println("A client connected.");
-		server.close();
-	}
+	 @javax.websocket.server.ServerEndpoint(value = "/WebSockets_illustration")
+	    public static class My_ServerEndpoint {
+
+	        @javax.websocket.OnClose
+	        public void onClose(javax.websocket.Session session, javax.websocket.CloseReason close_reason) {
+	            System.out.println("onClose: " + close_reason.getReasonPhrase());
+	        }
+
+	        @javax.websocket.OnError
+	        public void onError(javax.websocket.Session session, Throwable throwable) {
+	            System.out.println("onError: " + throwable.getMessage());
+	        }
+
+	        @javax.websocket.OnMessage
+	        public void onMessage(javax.websocket.Session session, String message) {
+	            System.out.println("Message from JavaScript: " + message);
+	        }
+
+	        @javax.websocket.OnOpen
+	        public void onOpen(javax.websocket.Session session, javax.websocket.EndpointConfig ec) throws java.io.IOException {
+	            System.out.println("OnOpen... " + ec.getUserProperties().get("Author"));
+	            session.getBasicRemote().sendText("{Handshaking: \"Yes\"}");
+	        }
+	    }
+    
 }
