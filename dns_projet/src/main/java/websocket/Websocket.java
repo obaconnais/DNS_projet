@@ -2,31 +2,41 @@ package websocket;
 
 import java.io.IOException;
 import javax.websocket.*;
+import javax.websocket.OnMessage;
+import javax.websocket.server.ServerEndpoint;
+import javax.websocket.OnOpen;
+import javax.websocket.EndpointConfig;
 
+@ServerEndpoint(value = "/Websockets_serveur")
 public class Websocket {
-	 @javax.websocket.server.ServerEndpoint(value = "/WebSockets_illustration")
-	    public static class My_ServerEndpoint {
-
-	        @javax.websocket.OnClose
-	        public void onClose(javax.websocket.Session session, javax.websocket.CloseReason close_reason) {
-	            System.out.println("onClose: " + close_reason.getReasonPhrase());
-	        }
-
-	        @javax.websocket.OnError
-	        public void onError(javax.websocket.Session session, Throwable throwable) {
-	            System.out.println("onError: " + throwable.getMessage());
-	        }
-
-	        @javax.websocket.OnMessage
-	        public void onMessage(javax.websocket.Session session, String message) {
-	            System.out.println("Message from JavaScript: " + message);
-	        }
-
-	        @javax.websocket.OnOpen
-	        public void onOpen(javax.websocket.Session session, javax.websocket.EndpointConfig ec) throws java.io.IOException {
-	            System.out.println("OnOpen... " + ec.getUserProperties().get("Author"));
-	            session.getBasicRemote().sendText("{Handshaking: \"Yes\"}");
-	        }
-	    }
-    
+	
+	public Websocket() {}
+	
+	public Websocket(String message, Session session, EndpointConfig config, CloseReason close_reason, Throwable t) {
+		this.Message_traitement(message);
+		this.OnClose_traitement(session, close_reason);
+		this.OnOpen_traitement(session, config);
+		this.OnError(session, t);
+	}
+	
+	@OnMessage
+	public void Message_traitement(String message) {
+		System.out.println("Message recu par Websockets_serveur: " + message);
+	}
+	
+	@OnOpen
+	public void OnOpen_traitement(Session session, EndpointConfig config){
+		System.out.println("WebSocket ouverte :" + session.getId());
+	}
+	
+	@OnClose
+	public void OnClose_traitement(Session session, CloseReason close_reason) {
+		System.out.println("Fermeture de la wabsocket : " + close_reason.getReasonPhrase());
+	}
+	
+	@OnError
+	public void OnError(Session session, Throwable t) {
+		t.printStackTrace();
+	}
+	
 }
