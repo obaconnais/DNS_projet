@@ -5,7 +5,7 @@ import javax.naming.directory.*;
 import java.util.Hashtable;
 
 public class Dns {
-	public Dns() throws NamingException{
+	public Dns(String NomDomaine) throws NamingException{
 		//creation d'une Hashtable pour stocker les DNS.
 		Hashtable<String,String> environnement = new Hashtable<String, String>();
 		
@@ -17,7 +17,7 @@ public class Dns {
 
 		//création d'un ensemble d'association.
 		DirContext context = new InitialDirContext(environnement);
-		Object test = context.lookup("airbus");
+		Object test = context.lookup(NomDomaine);
 		System.out.println(test);
 		NamingEnumeration ne = context.list("");
 		
