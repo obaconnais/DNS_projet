@@ -2,70 +2,58 @@ package jndi;
 
 import javax.naming.*;
 import javax.naming.directory.*;
-import java.util.Hashtable;
+import java.util.*;
 
 public class Dns {
-	public Dns(String NomDomaine) throws NamingException{
-		//creation d'une Hashtable pour stocker les DNS.
-		Hashtable<String,String> environnement = new Hashtable<String, String>();
+	public Dns(String Name_, String Domaine_) {
 		
-		//Ajout des données dans la Hashtable.
-		environnement.put(Context.INITIAL_CONTEXT_FACTORY,"com.sun.jndi.dns.DnsContextFactory");
-//		environnement.put(Context.PROVIDER_URL, "dns://194.167.156.13");
-		environnement.put(Context.PROVIDER_URL, "dns://8.8.8.8");				
-//		environnement.put(Context.PROVIDER_URL, "dns://193.146.78.14");
-
-		//création d'un ensemble d'association.
-		DirContext context = new InitialDirContext(environnement);
-		Object test = context.lookup(NomDomaine);
-		System.out.println(test);
-		NamingEnumeration ne = context.list("");
-		
-		int k=0;
-		//affichage de la list.
-		while(ne.hasMore()) {
-            System.out.println("\t" + ((NameClassPair) (ne.next())).getName());
-            k++;
-		}
-		System.out.println(k);
-		NameParser np = context.getNameParser("");
-		Name google = np.parse("www.airbus.com");
-		System.out.println(google.size());
-		 for (int i = 0; i < google.size(); i++) {
-             System.out.print("\t" + google.get(i));
-         }
-		System.out.println("\n");
-		Attributes atr1 = context.getAttributes("www.google.com",new String[] {"A","AAAA"});
-		NamingEnumeration<? extends Attribute> e = atr1.getAll();
-		
-		//affichage des attributs.	
-		while(e.hasMoreElements()) { 
-		    Attribute a = e.next(); 
-		    System.out.println(a.getID() + " = " + a.get()); 
-		} 
-        context.close();
+		try {
+            Properties _p = new Properties();
+            _p.setProperty(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.dns.DnsContextFactory");
+            DirContext dc = new InitialDirContext(_p);
+            Attributes attributes = dc.getAttributes(Name_ + Domaine_, new String[]{"NS", "A", "AAAA"});
+            
+            if (attributes != null) {
+            	
+            	NamingEnumeration<?> A = attributes.get("A").getAll();
+            	NamingEnumeration<?> AAAA = attributes.get("AAAA").getAll();
+                NamingEnumeration<?> NS = attributes.get("NS").getAll(); 
+                
+                while (NS.hasMoreElements()) {
+                    System.out.println("[NS] entry: " + NS.next().toString());
+                } 
+                while (A.hasMoreElements()) {
+                    System.out.println("[A] entry: " + A.next().toString());
+                }  
+                while (AAAA.hasMoreElements()) {
+                    System.out.println("[AAAA] entry: " + AAAA.next().toString());
+                }  
+            }
+            
+            InitialContext _ic = new InitialContext(_p);
+            NamingEnumeration<?> NS = _ic.list("");
+            
+            NameParser np = _ic.getNameParser(_ic.getNameInNamespace());
+            Name university_of_Mondragon = np.parse("www." + Name_ + Domaine_);
+            System.out.print("\nwww." + Name_ + Domaine_ + " " + university_of_Mondragon.size() + " components:");
+            for (int i = 0; i < university_of_Mondragon.size(); i++) {
+                System.out.print("\t" + university_of_Mondragon.get(i));
+            }
+            Object o = _ic.lookup(university_of_Mondragon.getPrefix(university_of_Mondragon.size() - 1));
+            NS = (((DirContext) o).getAttributes(university_of_Mondragon, null)).getAll();
+            while (NS.hasMore()) {
+                BasicAttribute ba = (BasicAttribute) NS.next();
+                System.out.print("\n\tAttribute id. [" + ba.getID() + "]: ");
+                NamingEnumeration<?> NSe = ba.getAll();
+                while (NSe.hasMore()) {
+                    System.out.print("\t" + NSe.next());
+                }
+            }
+            System.out.println("\n\nClosing...");
+            _ic.close();
+            
+		} catch (NamingException NS) {
+            System.err.println(NS.getMessage() + ": " + NS.getExplanation());
+        }
 	}
-	
-    static void printAttrs(Attributes attrs) {
-	if (attrs == null) {
-	    System.out.println("No attributes");
-	} else {
-	    /* Print each attribute */
-	    try {
-		for (NamingEnumeration ae = attrs.getAll();
-		     ae.hasMore();) {
-		    Attribute attr = (Attribute)ae.next();
-		    System.out.println("attribute: " + attr.getID());
-
-		    /* print each value */
-		}
-		    for (NamingEnumeration e = attrs.getAll();
-			 e.hasMore();
-			 System.out.println("value: " + e.next()))
-			;
-	    } catch (NamingException e) {
-		e.printStackTrace();
-	    }
-	}
-    }
  }

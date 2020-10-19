@@ -3,5 +3,14 @@
   <groupId>Roman_Olivier</groupId>
   <artifactId>dns_projet</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+  
+  	<dependencies>
+  		<dependency>
+  			<groupId>com.sun.jndi</groupId>
+  			<artifactId>dns</artifactId>
+  			<version>1.2</version>
+  			<type>pom</type>
+  		</dependency>
+  	</dependencies>
 </project>
 

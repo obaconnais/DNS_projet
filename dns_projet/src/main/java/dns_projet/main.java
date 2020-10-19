@@ -9,7 +9,6 @@ import jndi.Dns;
 public class main {
 
 	public static void main(String[] args) throws NamingException {
-		Dns test = new Dns("airbus");
+		Dns _google = new Dns("google", ".com");
 	}
-
 }
