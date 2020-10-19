@@ -17,13 +17,25 @@ public class Dns {
 
 		//création d'un ensemble d'association.
 		DirContext context = new InitialDirContext(environnement);
+		Object test = context.lookup("airbus");
+		System.out.println(test);
 		NamingEnumeration ne = context.list("");
 		
+		int k=0;
 		//affichage de la list.
-		while(ne.hasMore())
+		while(ne.hasMore()) {
             System.out.println("\t" + ((NameClassPair) (ne.next())).getName());
-		
-		Attributes atr1 = context.getAttributes("www.google.com",new String[] {"A"});
+            k++;
+		}
+		System.out.println(k);
+		NameParser np = context.getNameParser("");
+		Name google = np.parse("www.airbus.com");
+		System.out.println(google.size());
+		 for (int i = 0; i < google.size(); i++) {
+             System.out.print("\t" + google.get(i));
+         }
+		System.out.println("\n");
+		Attributes atr1 = context.getAttributes("www.google.com",new String[] {"A","AAAA"});
 		NamingEnumeration<? extends Attribute> e = atr1.getAll();
 		
 		//affichage des attributs.	
