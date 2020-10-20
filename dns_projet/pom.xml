@@ -3,13 +3,13 @@
   <groupId>test</groupId>
   <artifactId>test2</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <dependencies
+  <dependencies>
   <dependency>
     <groupId>com.sun.jndi</groupId>
     <artifactId>dns</artifactId>
     <version>1.2</version>
     <type>pom</type>
-</dependency>>
+</dependency>
   <dependency>
     <groupId>org.glassfish.tyrus</groupId>
     <artifactId>tyrus-server</artifactId>
