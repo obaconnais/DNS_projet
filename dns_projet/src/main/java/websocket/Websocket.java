@@ -1,9 +1,12 @@
 package websocket;
 
-import javax.websocket.*;
+import javax.websocket.CloseReason;
+import javax.websocket.OnClose;
 import javax.websocket.OnMessage;
-import javax.websocket.server.ServerEndpoint;
 import javax.websocket.OnOpen;
+import javax.websocket.Session;
+import javax.websocket.CloseReason.CloseCodes;
+import javax.websocket.server.ServerEndpoint;
 import javax.websocket.EndpointConfig;
 
 public class Websocket {
