@@ -19,6 +19,7 @@ public class Websocket {
 		this.OnError(session, t);
 	}
 	
+	
 	@OnMessage
 	public void Message_traitement(String message) {
 		System.out.println("Message recu par Websockets_serveur: " + message);
