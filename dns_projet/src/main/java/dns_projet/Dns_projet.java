@@ -12,7 +12,7 @@ import java.util.HashMap;
 
 import jndi.Dns;
 import websocket.Websocket.My_ServerEndpoint;; 
-public class main {
+public class Dns_projet {
 	
 
 	public static void main(String[] args) throws NamingException, IOException {
