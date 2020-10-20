@@ -31,7 +31,6 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/J2SE-1.5">
 		<attributes>
-			<attribute name="module" value="true"/>
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
@@ -43,5 +42,6 @@
 	<classpathentry kind="lib" path="/Users/olivier/Downloads/websocket-ri-archive-1.12/lib/tyrus-container-servlet-1.12.jar"/>
 	<classpathentry kind="lib" path="/Users/olivier/Downloads/websocket-ri-archive-1.12/lib/tyrus-core-1.12.jar"/>
 	<classpathentry kind="lib" path="/Users/olivier/Downloads/websocket-ri-archive-1.12/lib/tyrus-spi-1.12.jar"/>
+	<classpathentry kind="lib" path="/Users/olivier/Downloads/WebSockets_Tyrus_1_15.Java.Maven.zip"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
