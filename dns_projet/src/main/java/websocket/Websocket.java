@@ -12,26 +12,11 @@ import javax.websocket.EndpointConfig;
 
 public class Websocket {
 	
-	@ServerEndpoint(value = "/Websockets_serveur")
+	@ServerEndpoint(value = "/Websocket")
 	public static class My_ServerEndpoint{
 		@OnMessage
 		public void Message_traitement(String message) {
 			System.out.println("Message recu par Websockets_serveur: " + message);
 		}
-		
-		@OnOpen
-		public void OnOpen_traitement(Session session, EndpointConfig config){
-			System.out.println("WebSocket ouverte :" + session.getId());
-		}
-		
-		@OnClose
-		public void OnClose_traitement(Session session, CloseReason close_reason) {
-			System.out.println("Fermeture de la wabsocket : " + close_reason.getReasonPhrase());
-		}
-		
-		@OnError
-		public void OnError(Session session, Throwable t) {
-			t.printStackTrace();
-		}
-	}
+    }
 }
