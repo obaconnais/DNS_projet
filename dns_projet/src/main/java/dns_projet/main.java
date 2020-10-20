@@ -1,15 +1,17 @@
 package dns_projet;
 
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+
 import javax.naming.NamingException;
 
 import org.glassfish.tyrus.server.Server;
-
 import java.util.HashMap;
 
 import jndi.Dns;
-import websocket.Websocket; 
+import websocket.Websocket.My_ServerEndpoint;; 
 public class main {
 	
 
@@ -19,15 +21,15 @@ public class main {
 		user_properties.put("co-Author1", "oBaconnais");
 		user_properties.put("co-Author2", "rBadanin");
 
-        Server server = new Server("localhost", 1963, "/oBaconnais ", user_properties /* or 'null' */, Websocket.class);
+        Server server = new Server("localhost", 1963, "/oBaconnais", user_properties /* or 'null' */, My_ServerEndpoint.class);
         try {
         	server.start();
-            java.awt.Desktop.getDesktop().browse(java.nio.file.FileSystems.getDefault().getPath("web" + java.io.File.separatorChar + "index.html").toUri());
-            java.io.BufferedReader reader = new java.io.BufferedReader(new java.io.InputStreamReader(System.in));
-            System.out.println("Please press a key to stop the server...");
+        	BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+            System.out.print("Please press a key to stop the server.");
             reader.readLine();
 
         }catch(Exception e) {
+        	System.out.println("error");
         	e.printStackTrace();
         }
         finally {
