@@ -30,8 +30,10 @@ public class main {
             Server server = new Server("localhost",0,"/Roman_Olivier", user_properties,My_ServerEndpoint.class);
            try{
                 server.start();
-                java.awt.Desktop.getDesktop().browse(java.nio.file.FileSystems.getDefault().getPath("browser_server" + java.io.File.separatorChar + "index.html").toUri());
+                java.awt.Desktop.getDesktop().browse(java.nio.file.FileSystems.getDefault().getPath("src/main/resources/browser_serveur" + java.io.File.separatorChar + "index.html").toUri());
+                //pour lire les données envoyé par le serveur.
                 BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+                //permet de stopper le serveur.
                 System.out.println("Please press a key to stop the server...");
                 reader.readLine();
            }catch (Exception e){
@@ -39,6 +41,6 @@ public class main {
            }
            finally{
                server.stop();
-           }
+            }
 	}
 }
