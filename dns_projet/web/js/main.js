@@ -35,4 +35,9 @@ window.onload = () => {
         window.alert("service.onerror...");
         window.close;
     };
+    
 };
+
+function domain_search(event){
+   let test = document.getElementById("recherche").value;
+}
