@@ -8,7 +8,7 @@ import javax.naming.NamingException;
 
 import org.glassfish.tyrus.server.Server;
 import java.util.HashMap;
-
+import java.net.URL;
 import jndi.Dns;
 
 public class main {
@@ -43,11 +43,10 @@ public class main {
 
         //permet de stocker les propriétés du serveur.
         HashMap<String, Object> user_properties = new HashMap<String, Object>();
-        user_properties.put("co-Author1", "oBaconnais");
-        user_properties.put("co-Author2", "rBadanin");
+        user_properties.put("Author", "oBaconnaisrBadanin");
 
         //instanciation du Websocket.... le port 0 utilise le port par defaut (TCP).
-        Server server = new Server("localhost", 8025, "/Roman_Olivier", user_properties,My_ServerEndpoint.class);
+        Server server = new Server("localhost", 8025, "/oBaconnaisrBadanin", user_properties,My_ServerEndpoint.class);
         try{
             server.start();
             java.awt.Desktop.getDesktop().browse(java.nio.file.FileSystems.getDefault().getPath("web" + java.io.File.separatorChar + "index.html").toUri());
