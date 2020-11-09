@@ -1,8 +1,9 @@
 'use strict';
 
 window.onload = () => {
-    // Tested with Tyrus 1.15 WebSockets Java library
+    
     let service = new WebSocket("ws://localhost:8025/Roman_Olivier/main");
+    //traitement du message envoyer par java
     service.onmessage = (event) => {
         console.log("Message from Java: " + event.data);
         service.send(
@@ -24,6 +25,7 @@ window.onload = () => {
                 })
             );
     };
+    
     service.onclose = (event/*:CloseEvent*/) => {
         console.log("service.onclose... " + event.code);
         window.alert("Bye! See you later...");
@@ -31,5 +33,6 @@ window.onload = () => {
     
     service.onerror = () => {
         window.alert("service.onerror...");
+        window.close;
     };
 };
