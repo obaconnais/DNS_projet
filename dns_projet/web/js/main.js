@@ -2,7 +2,7 @@
 
 window.onload = () => {
     // Tested with Tyrus 1.15 WebSockets Java library
-    let service = new WebSocket("ws://localhost:8025/oBaconnaisrBadanin/main");
+    let service = new WebSocket("ws://localhost:8025/Roman_Olivier/main");
     service.onmessage = (event) => {
         console.log("Message from Java: " + event.data);
         service.send(

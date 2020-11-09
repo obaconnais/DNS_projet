@@ -43,10 +43,10 @@ public class main {
 
         //permet de stocker les propriétés du serveur.
         HashMap<String, Object> user_properties = new HashMap<String, Object>();
-        user_properties.put("Author", "oBaconnaisrBadanin");
+        user_properties.put("Author", "Roman_Olivier");
 
         //instanciation du Websocket.... le port 0 utilise le port par defaut (TCP).
-        Server server = new Server("localhost", 8025, "/oBaconnaisrBadanin", user_properties,My_ServerEndpoint.class);
+        Server server = new Server("localhost", 8025, "/Roman_Olivier", user_properties,My_ServerEndpoint.class);
         try{
             server.start();
             java.awt.Desktop.getDesktop().browse(java.nio.file.FileSystems.getDefault().getPath("web" + java.io.File.separatorChar + "index.html").toUri());
