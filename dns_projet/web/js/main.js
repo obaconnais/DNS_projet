@@ -43,12 +43,19 @@ function domain_search(event){
    //le nom de domaine ne peut exceder 63 caractères.
    let Regex = /^[A-Za-z0-9][0-9a-zA-Z-]{0,61}[A-Za-z0-9].[A-Za-z]+$/;
    if(!Regex.test(Domain_Name))
-   { 
-       Swal.fire({
-           title:'le nom de domaine n\'est pas au bon format',
-           backdrop: 'false',
-            background: '#fff url(web/img/DNS_search_false.jpeg)',    
-            icon: 'warning'
-       })
+     Swal.fire({
+        position: 'center',
+        imageUrl:'img/bonhomme-loupe.png',
+        imageWidth: 300, 
+        imageHeight: 200,
+        footer: 'Le domaine est invalide',
+        confirmButtonText: 'J\'ai compris',
+        confirmButtonColor: '#131f36',
+        showConfirmButton: true,
+        timer: 5000
+    });
+   else
+   {
+      window.prompt("bien joué!"); 
    }
 }
