@@ -41,21 +41,20 @@ function domain_search(event){
    //Selon la charte de nommage de l'AFNIC, un nom de domaine est codé en ASCII composé de caractère alphanumérique a-z (casse non importante
    //de chiffre de 0 à 9 et du tiret -. 
    //le nom de domaine ne peut exceder 63 caractères.
-   let Regex = /^[A-Za-z0-9][0-9a-zA-Z-]{0,61}[A-Za-z0-9].[A-Za-z]+$/;
+   const Regex = /^[A-Za-z0-9][0-9a-zA-Z-]{0,61}[A-Za-z0-9].[A-Za-z]+$/
+   
    if(!Regex.test(Domain_Name))
      Swal.fire({
         position: 'center',
         imageUrl:'img/bonhomme-loupe.png',
-        imageWidth: 300, 
-        imageHeight: 200,
         footer: 'Le domaine est invalide',
-        confirmButtonText: 'J\'ai compris',
+        confirmButtonText: 'ok',
         confirmButtonColor: '#131f36',
         showConfirmButton: true,
         timer: 5000
     });
    else
    {
-      window.prompt("bien joué!"); 
+        window.prompt("bien joué");
    }
 }
