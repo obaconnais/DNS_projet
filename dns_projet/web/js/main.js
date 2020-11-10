@@ -1,5 +1,3 @@
-'use strict';
-
 window.onload = () => {
     
     let service = new WebSocket("ws://localhost:8025/Roman_Olivier/main");
@@ -16,7 +14,7 @@ window.onload = () => {
     
     service.onopen = () => {
         console.log("service.onopen...");
-        let response = window.confirm(service.url + " just opened... Say 'Hi!'?");
+        let response = window.confirm(service.url + " link with server is open");
         if (response)
             service.send(
                 JSON.stringify(
@@ -39,5 +37,18 @@ window.onload = () => {
 };
 
 function domain_search(event){
-   let test = document.getElementById("recherche").value;
+   let Domain_Name = document.getElementById("search").value; // recupération de la valeur du nom de domaine 
+   //Selon la charte de nommage de l'AFNIC, un nom de domaine est codé en ASCII composé de caractère alphanumérique a-z (casse non importante
+   //de chiffre de 0 à 9 et du tiret -. 
+   //le nom de domaine ne peut exceder 63 caractères.
+   let Regex = /^[A-Za-z0-9][0-9a-zA-Z-]{0,61}[A-Za-z0-9].[A-Za-z]+$/;
+   if(!Regex.test(Domain_Name))
+   { 
+       Swal.fire({
+           title:'le nom de domaine n\'est pas au bon format',
+           backdrop: 'false',
+            background: '#fff url(web/img/DNS_search_false.jpeg)',    
+            icon: 'warning'
+       })
+   }
 }

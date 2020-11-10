@@ -8,7 +8,6 @@ import javax.naming.NamingException;
 
 import org.glassfish.tyrus.server.Server;
 import java.util.HashMap;
-import java.net.URL;
 import jndi.Dns;
 
 public class main {
