@@ -1,15 +1,20 @@
-var service = new WebSocket("ws://localhost:8025/Roman_Olivier/main");
+/* on declara une variable globale pour avoir accées partout */
+var service;
 
 window.onload = () => {
-    //traitement du message envoyer par java
+    
+    /* on affecte a la variable le websocket */
+    service = new WebSocket("ws://localhost:8025/Roman_Olivier/main");
+    
+    /* traitement du message envoyer par java */
     service.onmessage = (event) => {
         console.log("Message from Java: " + event.data);
         service.send(
-                JSON.stringify(
-                {
-                    Response: "[JS]: La page Web est chargé chez le client."
-                })
-            );
+            JSON.stringify(
+            {
+                Response: "[JS]: La page Web est chargé chez le client."
+            })
+        );
     };
     
     service.onopen = () => {
@@ -31,9 +36,7 @@ window.onload = () => {
     
     service.onerror = () => {
         window.alert("service.onerror...");
-        window.close;
     };
-    
 };
 
 function domain_search()
@@ -46,28 +49,46 @@ function domain_search()
      * le nom de domaine ne peut exceder 63 caractères.
      */
 
-    let Regex = /^[A-Za-z0-9][0-9a-zA-Z-]{0,61}[A-Za-z0-9].[A-Za-z]+$/;
-    if (!Regex.test(Domain_Name)) {
+    const Regex = /^[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9]\.[a-zA-Z]{2,}$/;
+
+    /* 
+     * si le champ n'est pas vide
+     * si le domaine avec le niveau ne corresponde pas au regex 
+    */
+   
+    if (!!Domain_Name || !Regex.test(Domain_Name)) {
+        
+        /* sweetalert */
         Swal.fire({
             position: 'center',
             imageUrl: 'img/bonhomme-loupe.png',
-            footer: 'Le domaine est invalide',
-            confirmButtonText: 'J\'ai compris',
+            footer: 'Le domaine est vide ou invalide',
+            background: '#ECE7E5',
+            confirmButtonText: 'OK',
             confirmButtonColor: '#131f36',
             showConfirmButton: true,
             timer: 2500
         });
-    } else
-    {
-        // on recupere la partie sans le .fr .com etc...
+        
+        // on efface le contenue dans search(on vide le champ)
+        document.getElementById("search").value = "";
+    }
+    
+    /* si le domaine avec le niveau sont accepté par regex */
+    else
+    {   
+        // on recupere le niveau du domaine et domaine separer par un point
         let sub = Domain_Name.split(".");
+
         console.log("sub[0]: " + sub[0] + "\nsub[1]: " + sub[1]);
+
+        // on envoie a la console java les données découpé
         service.send(
-                JSON.stringify(
-                        {
-                            domaine: sub[0],
-                            domaine_: sub[1]
-                        })
-                );
+            JSON.stringify(
+            {
+                domaine: sub[0],
+                niveau : sub[1]
+            })
+        );
     }
 }
