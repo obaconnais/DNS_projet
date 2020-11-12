@@ -1,4 +1,4 @@
-package main;
+package com.Roman_Olivier.main;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -8,13 +8,17 @@ import javax.naming.NamingException;
 
 import org.glassfish.tyrus.server.Server;
 import java.util.HashMap;
-import jndi.Dns;
+import com.Roman_Olivier.jndi.Dns;
+import com.Roman_Olivier.websocket.JSDN_Message;
+import com.Roman_Olivier.websocket.JVDN_Message;
+import com.Roman_Olivier.websocket.Message_decoder;
+import com.Roman_Olivier.websocket.Message_encoder;
 
 public class main {
-	
-    @javax.websocket.server.ServerEndpoint(value = "/main")
+    
+        @javax.websocket.server.ServerEndpoint(value = "/main", decoders=Message_decoder.class,encoders=Message_encoder.class)
     public static class My_ServerEndpoint {
-
+     
         @javax.websocket.OnClose
         public void onClose(javax.websocket.Session session, javax.websocket.CloseReason close_reason) {
             System.out.println("onClose: " + close_reason.getReasonPhrase());
@@ -26,8 +30,10 @@ public class main {
         }
 
         @javax.websocket.OnMessage
-        public void onMessage(javax.websocket.Session session, String message) {
-            System.out.println("Message from JavaScript: " + message);
+        public void onMessage(javax.websocket.Session session, JSDN_Message message) {
+            System.out.println("Server has just received a message from JavaScript");
+            Dns _google = new Dns(message.GetDomain_Name(), message.GetDomain());
+            _google.Print();
         }
 
         @javax.websocket.OnOpen
@@ -36,10 +42,9 @@ public class main {
             session.getBasicRemote().sendText("{Handshaking: \"Yes\"}");
         }
     }
-    
+        
     public static void main(String[] args) throws NamingException, IOException {
-        Dns _google = new Dns("samsung", ".fr");
-
+      
         //permet de stocker les propriétés du serveur.
         HashMap<String, Object> user_properties = new HashMap<String, Object>();
         user_properties.put("Author", "Roman_Olivier");
@@ -60,5 +65,8 @@ public class main {
         finally{
            server.stop();
         }
-    }
+        
+        
+
+    } 
 }

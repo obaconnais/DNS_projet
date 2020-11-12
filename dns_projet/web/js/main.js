@@ -1,5 +1,5 @@
 /* on declara une variable globale pour avoir accées partout */
-var service;
+let service;
 
 window.onload = () => {
     
@@ -49,14 +49,14 @@ function domain_search()
      * le nom de domaine ne peut exceder 63 caractères.
      */
 
-    const Regex = /^[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9]\.[a-zA-Z]{2,}$/;
+    const Regex = /^[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9]\.[a-zA-Z]+$/;
 
     /* 
      * si le champ n'est pas vide
-     * si le domaine avec le niveau ne corresponde pas au regex 
+     * si le domaine avec le niveau ne correspond pas au regex 
     */
    
-    if (!!Domain_Name || !Regex.test(Domain_Name)) {
+    if (!Regex.test(Domain_Name)) {
         
         /* sweetalert */
         Swal.fire({
@@ -87,7 +87,7 @@ function domain_search()
             JSON.stringify(
             {
                 domaine: sub[0],
-                niveau : sub[1]
+                niveau : "." + sub[1]
             })
         );
     }
