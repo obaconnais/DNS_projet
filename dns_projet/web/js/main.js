@@ -1,5 +1,6 @@
 /* on declara une variable globale pour avoir accées partout */
 let service;
+let domaine, niveau;
 
 window.onload = () => {
     
@@ -12,13 +13,19 @@ window.onload = () => {
         console.log("Message from Java: " + event.data);
         msg = JSON.parse(event.data);
         //recupération sous forme de tableau des clés du JSON.
-        let  tab_keys = Object.keys(msg);
-        response(tab_keys, msg);
+        let tab_keys = Object.keys(msg);
+        response(event.data, tab_keys, msg);
     };
 
     service.onopen = () => {
         console.log("service.onopen...");
-        let response = window.confirm(service.url + " link with server is open");
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: `Server is open`,
+            showConfirmButton: false,
+            timer: 2500
+        });
         if (response)
             service.send(
                     JSON.stringify(
@@ -30,11 +37,24 @@ window.onload = () => {
 
     service.onclose = (event/*:CloseEvent*/) => {
         console.log("service.onclose... " + event.code);
-        window.alert("Bye! See you later...");
+        Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: `Server is closed<br>Bye! See you later...`,
+            showConfirmButton: false,
+            timer: 2500
+        });
     };
 
     service.onerror = () => {
-        window.alert("service.onerror...");
+        console.log("service.onerror...");
+        Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: `Server is closed`,
+            showConfirmButton: false,
+            timer: 2500
+        });
     };
 };
 
@@ -88,13 +108,23 @@ function domain_search()
                             niveau: "." + sub[1]
                         })
                 );
+        domaine = sub[0];
+        niveau = "." + sub[1];
     }
 }
 
 //function to display the Answer.
-function response(tab, msg) {
-    const response = document.getElementById('response');
-    response.innerHTML = "<div>" + "<h7> voici les informations : </h7>" + tab.map(x => "<p>" + x + " : " + msg[x] + "</p>" + "</div>").join('');
+function response(event, tab, msg) {
+    let resp = tab.map(x => x + ": " + msg[x]).join('<br>');
+    Swal.fire({
+            position: 'center',
+            icon: 'succes',
+            icon: 'info',
+            confirmButtonText: 'OK',
+            title: `Resultat pour: ${domaine}${niveau}`,
+            html: `${resp}`,
+            showConfirmButton: false,
+    });
 }
 
 function Contact() {
