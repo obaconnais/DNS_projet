@@ -13,10 +13,7 @@ window.onload = () => {
         msg = JSON.parse(event.data);
         //recupération sous forme de tableau des clés du JSON.
         let  tab_keys = Object.keys(msg);
-        const response = document.getElementById('response');
-        response.innerHTML = "<div> voici les informations </div>"; 
-        response.innerHTML = tab_keys.map(x => "<div >" + x + " : " + msg[x] + "</div>");
-      
+        response(tab_keys, msg);
     };
 
     service.onopen = () => {
@@ -41,6 +38,7 @@ window.onload = () => {
     };
 };
 
+//traitment of data in search-bar
 function domain_search()
 {
     let Domain_Name = document.getElementById("search").value; // recupération de la valeur du nom de domaine 
@@ -90,4 +88,23 @@ function domain_search()
                         })
                 );
     }
+}
+
+//function to display the Answer.
+function response(tab, msg) {
+    const response = document.getElementById('response');
+    response.innerHTML = "<div>" + "<h7> voici les informations : </h7>" + tab.map(x => "<p>" + x + " : " + msg[x] + "</p>" + "</div>").join('');
+}
+
+function Contact() {
+    /* sweetalert */
+    Swal.fire({
+        title: 'contact(s) developpeur(s)',
+        text: "r.badanin@univ-pau.fr \n test",
+        position: 'center',
+        background: '#ECE7E5',
+        confirmButtonText: 'OK',
+        confirmButtonColor: '#131f36',
+        showConfirmButton: true,
+    });
 }
