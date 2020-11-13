@@ -2,7 +2,7 @@
 let service;
 
 window.onload = () => {
-
+    
     /* on affecte a la variable le websocket */
     service = new WebSocket("ws://localhost:8025/Roman_Olivier/main");
 
@@ -77,6 +77,7 @@ function domain_search()
     /* si le domaine avec le niveau sont accepté par regex */
     else
     {
+        
         // on recupere le niveau du domaine et domaine separer par un point
         let sub = Domain_Name.split(".");
         // on envoi à la console java les données découpés
