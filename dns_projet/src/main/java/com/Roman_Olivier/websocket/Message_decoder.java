@@ -16,14 +16,15 @@ public class Message_decoder implements Decoder.Text<JSDN_Message> {
 
     public JSDN_Message decode(String s) throws DecodeException {
         JSDN_Message js_domain = null;
-        Services_message SM=null;
+        Services_message SM = null;
         Set keys = map.keySet();
 
-        if (willDecode(s)&&(keys.contains("domaine") && keys.contains("niveau"))) {
+        if (willDecode(s) || keys.contains("Response")) {
             js_domain = new JSDN_Message(map.get("domaine"), map.get("niveau"));
         }
-        else
+        else { // Erreurs
             SM = new Services_message(map.get("response"));
+        }
 
         return js_domain;
     }
@@ -41,11 +42,7 @@ public class Message_decoder implements Decoder.Text<JSDN_Message> {
             }
         }
         Set keys = map.keySet();
-        if ((keys.contains("domaine") && keys.contains("niveau"))||keys.contains("Response")) {
-            return true;
-        }
-
-        return false;
+        return (keys.contains("domaine") && keys.contains("niveau"));
     }
 
     public void init(EndpointConfig ec) {

@@ -20,11 +20,13 @@ public class Dns {
             NamingEnumeration<?> _ne = (((DirContext) o).getAttributes(name, null)).getAll();
             while (_ne.hasMore()) {
                 BasicAttribute ba = (BasicAttribute) _ne.next();
-                GetRecords().put(ba.getID().toString(),ba.get().toString());
+                GetRecords().put(ba.getID(),ba.get().toString());
             }
             _ic.close();
 
         } catch (NamingException _ne) {
+            /* recuperation de l'erreur */
+            GetRecords().put("[_Erreur]",_ne.getMessage());
             System.err.println(_ne.getMessage() + ": " + _ne.getExplanation());
         }
     }

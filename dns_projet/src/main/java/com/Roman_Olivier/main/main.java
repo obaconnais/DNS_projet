@@ -32,7 +32,7 @@ public class main {
         @javax.websocket.OnMessage
         public void onMessage(javax.websocket.Session session, JSDN_Message message) throws IOException, EncodeException {
             //Message receive and decode by the class Message_decoder.java.
-            System.out.println("Server has just received a message from JavaScript");//information of server.
+            System.out.println("Message reçu de Javascript: " + message.GetDomain_Name() + message.GetDomain());//information of server.
             //When message decoded, instanciation of JNDI with attribute of message.
             Dns _DNS = new Dns(message.GetDomain_Name(), message.GetDomain());
             //then, Dns send to js after being encode by the class Message_encode.java
