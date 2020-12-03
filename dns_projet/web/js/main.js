@@ -199,7 +199,9 @@ function About() {
     /* sweetalert */
     Swal.fire({
         title: 'A Propos',
-        html: ``,
+        icon: 'info',
+        html: `Plus de 56 commits entre le debut de creation du projet <i>16 Oct</i> et <i>Dec 3, 2020 dernier commit.</i>.`,
+        footer: `<a href="https://github.com/obaconnais/DNS_projet">GitHub Private Repositorie</a>`,
         position: 'center',
         confirmButtonText: 'OK',
         confirmButtonColor: '#131f36',
